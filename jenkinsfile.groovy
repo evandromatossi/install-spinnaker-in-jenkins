@@ -4,8 +4,8 @@ pipeline {
 
   environment {
     FOLDER="spinnaker-for-gcp" // Adicionar a pasta do projeto que tenha tf
-    SERVICE_ACCOUNT="sa-bmsix-lab-spinnaker" // Adicionar IDs da credentials criada e adicionada no jenkins.
-    PROJECT="bmsix-labs" //Adicionar projeto
+    SERVICE_ACCOUNT="sa-lab-spinnaker" // Adicionar IDs da credentials criada e adicionada no jenkins.
+    PROJECT="labs" //Adicionar projeto
     ZONE="us-central1" // Zona do projeto
   }
 
@@ -31,7 +31,7 @@ pipeline {
             withCredentials([file(credentialsId: env.SERVICE_ACCOUNT, variable: 'GOOGLE_CREDENTIALS')]) {
               dir(env.FOLDER) {
                 sh "gcloud auth activate-service-account  --key-file=${GOOGLE_CREDENTIALS} --project=${PROJECT}" //autenticacao ao projeto do cluster
-                sh "gcloud container clusters get-credentials spinnaker-install --region us-central1 --project bmsix-labs" //autenticacao no cluster
+                sh "gcloud container clusters get-credentials spinnaker-install --region us-central1 --project labs" //autenticacao no cluster
                 sh 'pwd'
                 sh 'ls -la'        
               }
